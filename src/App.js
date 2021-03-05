@@ -13,10 +13,8 @@ class App extends React.Component {
       "https://www.anapioficeandfire.com/api/books/" + event.target.value;
     var charactersUrls = await axios.get(book_url);
     console.log(charactersUrls.data.characters.length);
-    var axiosRequests = [];
-    for(let i = 0 ; i< charactersUrls.data.characters.length ; i++){
-      axiosRequests.push(axios.get(charactersUrls.data.characters[i]));
-    } 
+    var axiosRequests = []; 
+    charactersUrls.data.characters.forEach((key) => axiosRequests.push(axios.get(key)));
     axios.all(axiosRequests).then(axios.spread((...responses) => {
       for(let i =0 ; i < responses.length ; i++){
         this.setState({characterName : this.state.characterName.concat(responses[i].data.name)});
