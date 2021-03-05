@@ -12,7 +12,6 @@ class App extends React.Component {
     const book_url =
       "https://www.anapioficeandfire.com/api/books/" + event.target.value;
     var charactersUrls = await axios.get(book_url);
-    console.log(charactersUrls.data.characters.length);
     var axiosRequests = []; 
     charactersUrls.data.characters.forEach((key) => axiosRequests.push(axios.get(key)));
     axios.all(axiosRequests).then(axios.spread((...responses) => {
